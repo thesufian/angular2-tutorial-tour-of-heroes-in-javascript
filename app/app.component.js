@@ -81,7 +81,7 @@
                     this.heroes = heroes;
                 },
                 onSelect: function (hero) {
-                    console.log(hero);
+                    //console.log(hero);
                     this.selectedHero = hero;
                 }
             });
