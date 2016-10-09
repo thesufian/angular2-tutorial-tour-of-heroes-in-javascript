@@ -1,20 +1,8 @@
 (function (app) {
-    var heroes = [
-        { id: 11, name: 'Mr. Nice' },
-        { id: 12, name: 'Narco' },
-        { id: 13, name: 'Bombasto' },
-        { id: 14, name: 'Celeritas' },
-        { id: 15, name: 'Magneta' },
-        { id: 16, name: 'RubberMan' },
-        { id: 17, name: 'Dynama' },
-        { id: 18, name: 'Dr IQ' },
-        { id: 19, name: 'Magma' },
-        { id: 20, name: 'Tornado' }
-    ];
-
     app.AppComponent =
         ng.core.Component({
             selector: 'my-app',
+            providers: [app.HeroService],
             styles: [`
             .selected {
                 background-color: #CFD8DC !important;
@@ -76,13 +64,21 @@
       `
         })
             .Class({
-                constructor: function () {
+                constructor: [app.HeroService, function (heroService) {
                     this.title = 'Tour of Heroes';
-                    this.heroes = heroes;
+                    //this.heroes = [];
+                    this.heroService = heroService;
+                }],
+                ngOnInit: function () {
+                    this.getHeroes();
                 },
                 onSelect: function (hero) {
                     //console.log(hero);
                     this.selectedHero = hero;
+                },
+                getHeroes: function () {
+                    //this.heroes = this.heroService.getHeroes();
+                    this.heroService.getHeroesSlowly().then(heroes => this.heroes = heroes);
                 }
             });
 })(window.app || (window.app = {}));
