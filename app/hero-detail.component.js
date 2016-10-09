@@ -2,20 +2,25 @@
     app.HeroDetailComponent =
         ng.core.Component({
             selector: 'my-hero-detail',
-            inputs : ['hero'],
-            template: `
-    <div *ngIf="hero">
-        <h2>{{hero.name}} details!</h2>
-        <div><label>id: </label>{{hero.id}}</div>
-        <div>
-        <label>name: </label>
-        <input [(ngModel)]="hero.name" placeholder="name"/>
-        </div>
-    </div>
-  `
+            //inputs: ['hero'],
+            templateUrl: 'hero-detail.component.html',
+            styleUrls: [ 'hero-detail.component.css' ]
         }).Class({
-            constructor:function(){
-               //this.hero= ng.core.Input("hero");
+            constructor: [app.HeroService, ng.router.ActivatedRoute, ng.common.Location,
+                function (heroService, route, loaction) {
+                    this.heroService = heroService;
+                    this.route = route;
+                    this.location = loaction;
+                }],
+            ngOnInit: function () {
+                this.route.params.forEach(params => {
+                    let id = +params['id'];
+                    this.heroService.getHero(id)
+                        .then(hero => this.hero = hero);
+                });
+            },
+            goBack: function () {
+                this.location.back();
             }
-         });
+        });
 })(window.app || (window.app = {}));
