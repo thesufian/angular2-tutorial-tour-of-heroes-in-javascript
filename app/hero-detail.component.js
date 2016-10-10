@@ -4,7 +4,7 @@
             selector: 'my-hero-detail',
             //inputs: ['hero'],
             templateUrl: 'hero-detail.component.html',
-            styleUrls: [ 'hero-detail.component.css' ]
+            styleUrls: ['hero-detail.component.css']
         }).Class({
             constructor: [app.HeroService, ng.router.ActivatedRoute, ng.common.Location,
                 function (heroService, route, loaction) {
@@ -21,6 +21,9 @@
             },
             goBack: function () {
                 this.location.back();
+            },
+            save: function () {
+                return this.heroService.update(this.hero).then(() => this.goBack());
             }
         });
 })(window.app || (window.app = {}));

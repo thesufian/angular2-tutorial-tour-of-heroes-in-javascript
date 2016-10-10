@@ -2,6 +2,7 @@
   app.AppModule =
     ng.core.NgModule({
       imports: [ng.platformBrowser.BrowserModule, ng.forms.FormsModule,
+      ng.http.HttpModule,
         ng.router.RouterModule.forRoot([
           {
             path: '',
@@ -26,7 +27,8 @@
         app.AppComponent,
         app.HeroesComponent,
         app.DashboardComponent,
-        app.HeroDetailComponent
+        app.HeroDetailComponent,
+        app.HeroSearchComponent
       ],
       bootstrap: [app.AppComponent]
     })

@@ -13,7 +13,7 @@
                 }],
                 ngOnInit: function () {
                     this.heroService.getHeroes()
-                        .then(heroes => this.heroes = heroes.slice(1, 5));
+                        .then(heroes => this.heroes = heroes.slice(0, 4));
                 },
                 gotoDetail: function (hero) {
                     let link = ['/detail', hero.id];

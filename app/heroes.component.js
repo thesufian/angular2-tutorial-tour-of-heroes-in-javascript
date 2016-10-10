@@ -25,6 +25,22 @@
                 },
                 gotoDetail: function () {
                     this.router.navigate(['/detail', this.selectedHero.id]);
+                },
+                add: function (name) {
+                    name = name.trim();
+                    return this.heroService.create(name)
+                        .then(hero => {
+                            this.heroes.push(hero);
+                            this.selectedHero = null;
+                        });
+                },
+                delete: function (hero) {
+                    this.heroService
+                    .delete(hero.id)
+                    .then(() => {
+                        this.heroes = this.heroes.filter(h => h !== hero);
+                        if (this.selectedHero === hero) { this.selectedHero = null; }
+                    });
                 }
             });
 })(window.app || (window.app = {}));
